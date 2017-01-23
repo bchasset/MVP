@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Brian Hassett Hack Reactor MVP Project",
   "engines": {
-    "node": ">=4.0.0"
+    "node": "6.9.1"
   },
   "scripts": {
     "start": "node server.js"
