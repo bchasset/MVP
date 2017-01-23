@@ -1,0 +1,18 @@
+{
+  "name": "Workout Ratings",
+  "version": "1.0",
+  "description": "Brian Hassett Hack Reactor MVP Project",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+  },
+  "dependencies": {
+    "body-parser": "^1.4.3",
+    "express": "^4.4.5",
+    "mongoose": "^4.1.0",
+    "morgan": "^1.1.1",
+    "q": "^1.4.1",
+    "request": "^2.36.0"
+  },
