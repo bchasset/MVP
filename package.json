@@ -1,6 +1,6 @@
 {
-  "name": "Workout Ratings",
-  "version": "1.0",
+  "name": "workout-ratings",
+  "version": "1.0.0",
   "description": "Brian Hassett Hack Reactor MVP Project",
   "engines": {
     "node": ">=4.0.0"
