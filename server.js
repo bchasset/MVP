@@ -4,8 +4,7 @@ var app = express();
 
 //mongoose.connect();
 
-app.use(express.static('Public'));
-
+app.use(express.static(__dirname + '/public'));
 
 app.listen(3000);
 
