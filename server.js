@@ -1,7 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var app = express();
-var Q = require('q');
 var bodyParser = require('body-parser');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
@@ -20,14 +19,15 @@ var workoutSchema = mongoose.Schema({
   benchPressGain: Number,
   squatGain: Number,
   deadliftGain: Number,
-  totalRatings: Number
+  totalRatings: Number,
+  outOfTen: Number
 });
 
 var Workout = mongoose.model('Workout', workoutSchema);
 
-Workout.remove({}, function(err) {
-  console.log('removed');
-})
+// Workout.remove({}, function(err) {
+//   console.log('removed');
+// })
 
 app.post('/workouts', function(req, res) {
   console.log(req.body.name);
@@ -37,6 +37,7 @@ app.post('/workouts', function(req, res) {
     benchPressGain: req.body.benchPressGain,
     squatGain: req.body.squatGain,
     deadliftGain: req.body.deadliftGain,
+    outOfTen: req.body.outOfTen,
     totalRatings: 1
   });
   thing.save(function(err, thing) {
@@ -67,6 +68,7 @@ app.post('/updateworkout', function(req, res) {
       workout.benchPressGain += req.body.benchPressGain;
       workout.squatGain += req.body.squatGain;
       workout.deadliftGain += req.body.deadliftGain;
+      workout.outOfTen += req.body.outOfTen;
       console.log('workout after adding stuff-------', workout);
       workout.save(function(err, workout) {
         if(err) {

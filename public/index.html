@@ -1,16 +1,50 @@
 <!DOCTYPE html>
-<html ng-app='ratings'>
-
+<html ng-app='app'>
 <head>
-  <meta charset="utf-8" />
   <title>Workout Ratings</title>
-<!--  <link rel="stylesheet" type="text/css" href="styles.css" /> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+  <script src="app.js"></script>
+  <!--  <link rel="stylesheet" href="styles.css" /> -->
 </head>
 
 <body>
   <h1>Workout Ratings</h1>
-  <div ng-view></div>
+   <div ng-controller="WorkoutListController">
+      <h2>Add a workout</h2>
+      <table>
+        <tr>
+          <th ng-click="sortType='name'; reverseSort = !reverseSort">Name</th>
+          <th ng-click="sortType='link'; reverseSort = !reverseSort">Link</th>
+          <th ng-click="sortType='totalRatings'; reverseSort = !reverseSort"># Ratings</th>
+          <th ng-click="sortType='workout.outOfTen / workout.totalRatings'; reverseSort = !reverseSort">Rating</th>
+          <th ng-click="sortType='squatGain.outOfTen / workout.totalRatings'; reverseSort = !reverseSort">Squat Increase</th>
+          <th ng-click="sortType='deadliftGain.outOfTen / workout.totalRatings'; reverseSort = !reverseSort">Deadlift Increase</th>
+          <th ng-click="sortType='benchPressGain.outOfTen / workout.totalRatings'; reverseSort = !reverseSort">Bench Press Increase</th>
+        </tr>
+        <tr ng-repeat="workout in data.workouts | orderBy:sortType:reverseSort">
+          <td>{{workout.name}}</td>
+          <td>{{workout.link}}</td>
+          <td>{{workout.totalRatings}}</td>
+          <td>{{workout.outOfTen / workout.totalRatings | number : 2}}</td>
+          <td>{{workout.squatGain / workout.totalRatings | number : 1}}</td>
+          <td>{{workout.deadliftGain / workout.totalRatings | number : 1}}</td>
+          <td>{{workout.benchPressGain / workout.totalRatings | number : 1}}</td>
+        </tr>
+      </table>
+  </div>
   <!--Add scripts -->
-
-
 </body>
+</html>
+
+  <ul ng-model="data.links">
+    <li ng-repeat="link in data.links | filter:searchText | orderBy:'-visits'">
+    <H1>{{link.url}}</H1>
+    <ul>
+      <li>URL: <span class='count'>{{link.url}}</span></li>
+      <li>Title: <span class='count'>{{link.title}}</span></li>
+      <li>Shortened Link <span class='count'>{{link.baseUrl + '/' + link.code}}</span></li>
+      <li>Visits: <span class='count'>{{link.visits}}</span></li>
+      </ul>
+    </li>
+  </ul>
+</div>
