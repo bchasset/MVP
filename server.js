@@ -6,7 +6,11 @@ var bodyParser = require('body-parser');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
-var databasepath = process.env.MONOGODB_URI || 'mongodb://localhost/workout'
+console.log(process.env.PORT);
+
+var databasepath = 'mongodb://heroku_1d9l0rzh:ovf5eqhue1lv6hklqkii09l7ue@ds127399.mlab.com:27399/heroku_1d9l0rzh';
+
+console.log(databasepath);
 
 mongoose.connect(databasepath);
 
