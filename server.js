@@ -10,25 +10,34 @@ console.log(process.env.PORT);
 
 var databasepath = 'mongodb://heroku_1d9l0rzh:ovf5eqhue1lv6hklqkii09l7ue@ds127399.mlab.com:27399/heroku_1d9l0rzh';
 
-console.log(databasepath);
-
 mongoose.connect(databasepath);
-
 
 app.listen(process.env.PORT || 3000);
 
-
-
-var testSchema = mongoose.Schema({
-  name: String
+var workoutSchema = mongoose.Schema({
+  name: String,
+  link: String,
+  benchPressGain: Number,
+  squatGain: Number,
+  deadliftGain: Number,
+  totalRatings: Number
 });
 
-var Test = mongoose.model('Test', testSchema);
+var Workout = mongoose.model('Workout', workoutSchema);
 
-app.post('/testingtesting', function(req, res) {
+Workout.remove({}, function(err) {
+  console.log('removed');
+})
+
+app.post('/workouts', function(req, res) {
   console.log(req.body.name);
-  var thing = new Test({
-    name: req.body.name
+  var thing = new Workout({
+    name: req.body.name,
+    link: req.body.link,
+    benchPressGain: req.body.benchPressGain,
+    squatGain: req.body.squatGain,
+    deadliftGain: req.body.deadliftGain,
+    totalRatings: 1
   });
   thing.save(function(err, thing) {
     if(err) {
@@ -39,8 +48,33 @@ app.post('/testingtesting', function(req, res) {
   })
 })
 
-app.get('/testingtesting', function(req, res) {
-  Test.find(function(err, tests) {
-    res.status(200).send(tests);
+app.get('/workouts', function(req, res) {
+  Workout.find(function(err, workouts) {
+    res.status(200).send(workouts);
+  })
+})
+
+app.post('/updateworkout', function(req, res) {
+  console.log(req.body.name);
+  Workout.findOne({
+    name: req.body.name
+  }, function(err, workout) {
+    if(err) {
+      return console.error(err);
+    } else {
+      console.log('wut is workout-------', workout, typeof workout);
+      workout.totalRatings++;
+      workout.benchPressGain += req.body.benchPressGain;
+      workout.squatGain += req.body.squatGain;
+      workout.deadliftGain += req.body.deadliftGain;
+      console.log('workout after adding stuff-------', workout);
+      workout.save(function(err, workout) {
+        if(err) {
+          return console.error(err);
+        } else {
+          res.status(200).send('updated')
+        }
+      })
+    }
   })
 })
