@@ -6,7 +6,9 @@ var bodyParser = require('body-parser');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost/workout');
+var databasepath = process.env.MONGOLAB_URI || 'mongodb://localhost/workout'
+
+mongoose.connect(databasepath);
 
 
 app.listen(process.env.PORT || 3000);
