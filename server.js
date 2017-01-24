@@ -40,6 +40,7 @@ app.post('/workouts', function(req, res) {
     outOfTen: req.body.outOfTen,
     totalRatings: 1
   });
+  console.log('posted', thing);
   thing.save(function(err, thing) {
     if(err) {
       return console.error(err);

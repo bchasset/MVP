@@ -9,8 +9,19 @@
 
 <body>
   <h1>Workout Ratings</h1>
-   <div ng-controller="WorkoutListController">
-      <h2>Add a workout</h2>
+    <h2>Add a workout</h2>
+      <div ng-controller="WorkoutEntryController">
+        <form ng-submit='addWorkout(workout)'>
+          <input type="text" ng-model='workout.name' placeholder="Name" ng-required="true"></input>
+          <input type="text" ng-model='workout.link' placeholder="Link" ng-required="true"></input>
+          <input type="text" ng-model='workout.outOfTen' placeholder="Rating out of 10" ng-required="true"></input>
+          <input type="text" ng-model='workout.squatGain' placeholder="Squat Gain" ng-required="true"></input>
+          <input type="text" ng-model='workout.deadliftGain' placeholder="Deadlift Gain" ng-required="true"></input>
+          <input type="text" ng-model='workout.benchPressGain' placeholder="Bench Press Gain" ng-required="true"></input>
+          <button>add workout</button>
+        </form>
+      </div>
+    <div ng-controller="WorkoutListController">
       <table>
         <tr>
           <th ng-click="sortType='name'; reverseSort = !reverseSort">Name</th>
@@ -31,20 +42,7 @@
           <td>{{workout.benchPressGain / workout.totalRatings | number : 1}}</td>
         </tr>
       </table>
-  </div>
+    </div>
   <!--Add scripts -->
 </body>
 </html>
-
-  <ul ng-model="data.links">
-    <li ng-repeat="link in data.links | filter:searchText | orderBy:'-visits'">
-    <H1>{{link.url}}</H1>
-    <ul>
-      <li>URL: <span class='count'>{{link.url}}</span></li>
-      <li>Title: <span class='count'>{{link.title}}</span></li>
-      <li>Shortened Link <span class='count'>{{link.baseUrl + '/' + link.code}}</span></li>
-      <li>Visits: <span class='count'>{{link.visits}}</span></li>
-      </ul>
-    </li>
-  </ul>
-</div>

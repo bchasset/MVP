@@ -21,4 +21,18 @@ var app = angular.module('app', [])
   }
   $scope.getWorkouts();
 })
-.controller()
+.controller("WorkoutEntryController", function($scope, $http) {
+  $scope.workout = {}
+  $scope.addWorkout = function(workout) {
+    console.log('workout posted------', workout);
+    $http({
+      method: 'POST',
+      url: '/workouts',
+      data: JSON.stringify(workout)
+    })
+    .then(function(resp) {
+      console.log(resp);
+      return resp;
+    })
+  }
+})
