@@ -25,9 +25,11 @@ var workoutSchema = mongoose.Schema({
 
 var Workout = mongoose.model('Workout', workoutSchema);
 
-// Workout.remove({}, function(err) {
-//   console.log('removed');
-// })
+
+//UNCOMMENT TO EMPTY DATABASE
+Workout.remove({}, function(err) {
+  console.log('removed');
+})
 
 app.post('/workouts', function(req, res) {
   console.log(req.body.name);
@@ -54,7 +56,7 @@ app.get('/workouts', function(req, res) {
   Workout.find(function(err, workouts) {
     res.status(200).send(workouts);
   })
-})
+});
 
 app.post('/updateworkout', function(req, res) {
   console.log(req.body.name);
@@ -63,21 +65,21 @@ app.post('/updateworkout', function(req, res) {
   }, function(err, workout) {
     if(err) {
       return console.error(err);
+    } else if(!workout) {
+        res.status(404).send("No workout with this name");
     } else {
-      console.log('wut is workout-------', workout, typeof workout);
       workout.totalRatings++;
       workout.benchPressGain += req.body.benchPressGain;
       workout.squatGain += req.body.squatGain;
       workout.deadliftGain += req.body.deadliftGain;
       workout.outOfTen += req.body.outOfTen;
-      console.log('workout after adding stuff-------', workout);
       workout.save(function(err, workout) {
-        if(err) {
-          return console.error(err);
-        } else {
-          res.status(200).send('updated')
-        }
-      })
-    }
+      if(err) {
+        return console.error(err);
+      } else {
+        res.status(200).send('updated')
+      }
+    })
+  }
   })
-})
+});
