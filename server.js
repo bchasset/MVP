@@ -27,9 +27,9 @@ var Workout = mongoose.model('Workout', workoutSchema);
 
 
 //UNCOMMENT TO EMPTY DATABASE
-Workout.remove({}, function(err) {
-  console.log('removed');
-})
+// Workout.remove({}, function(err) {
+//   console.log('removed');
+// })
 
 app.post('/workouts', function(req, res) {
   console.log(req.body.name);
