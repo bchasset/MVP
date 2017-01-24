@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
-var databasepath = process.env.MONGOLAB_URI || 'mongodb://localhost/workout'
+var databasepath = process.env.MONOGODB_URI || 'mongodb://localhost/workout'
 
 mongoose.connect(databasepath);
 
